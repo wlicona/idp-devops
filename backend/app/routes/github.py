@@ -1,0 +1,11 @@
+from fastapi import APIRouter
+from app.services.github_service import create_repo
+
+router = APIRouter()
+
+@router.post("/create_repo")
+def create_repository(name: str, description: str = ""):
+
+    repo = create_repository(name, description)
+
+    return repo
