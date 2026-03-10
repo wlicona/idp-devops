@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.services.github_service import create_repo
+from app.services.github_service import create_repo_github
 
 router = APIRouter()
 

@@ -10,6 +10,7 @@ from app.models import pipeline
 from app.routes import users
 from app.routes import github
 from app.routes import auth
+from app.routes import repository
 
 app = FastAPI(title= "DevOps IDP Platform", version="1.0")
 
@@ -31,6 +32,7 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(github.router, prefix="/github", tags=["github"])
 app.include_router(auth.router)
+app.include_router(repository.router, prefix="/repos", tags=["repositories"])
 
 @app.get("/")
 def health():

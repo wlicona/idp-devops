@@ -3,7 +3,7 @@ import os
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
-def create_repo(name: str, description: str):
+def create_repo_github(name: str, description: str):
 
     url = "https://api.github.com/user/repos"
 

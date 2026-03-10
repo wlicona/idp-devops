@@ -4,7 +4,8 @@ import axios from "axios";
 export default function CreateProject() {
     const [project, setProject] = useState({
         name: "",
-        description: ""
+        description: "",
+        provider: "github"
     });
 
     const handleChange = (e) => {
@@ -17,15 +18,17 @@ export default function CreateProject() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        console.log(project)
+
         try {
             await axios.post(
-                "http://localhost:8000/github/create-repo",
-                null,
+                "http://localhost:8000/repos/repositories",
+                
                 {
-                    params: {
                         name: project.name,
-                        description: project.description
-                    }
+                        description: project.description,
+                        provider: project.provider
+                    
                         
                 }
             );
@@ -62,6 +65,17 @@ export default function CreateProject() {
             onChange={handleChange}
             className="w-full p-3 rounded bg-gray-700 text-white"
           />
+
+          <select
+            name="provider"
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-gray-700 text-white">
+
+            <option value="github">GitHub</option>
+            <option value="gitlab">GitLab</option>
+            
+
+            </select>
 
           <button
             className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700"
