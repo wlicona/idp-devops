@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
+import CreateProject from "./pages/CreateProject";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -29,8 +30,18 @@ export default function App() {
           }
         />
 
+        <Route
+          path="/create-project"
+          element={
+            <ProtectedRoute>
+              <CreateProject />
+            </ProtectedRoute>
+          }
+        />
+
       </Routes>
 
     </BrowserRouter>
+
   );
 }

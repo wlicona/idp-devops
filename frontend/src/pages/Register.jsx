@@ -1,50 +1,78 @@
 import { useState } from "react";
-import { register } from "../api/auth";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Register() {
 
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
 
-  const navigate = useNavigate();
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
 
-  const handleRegister = async (e) => {
-
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await register(username, email, password);
-
-    navigate("/login");
+    try {
+      await axios.post("http://localhost:8000/users/", form);
+      alert("Usuario creado!");
+    } catch (error) {
+      console.error(error);
+      alert("Error registrando usuario");
+    }
   };
 
   return (
-    <div>
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
 
-      <h2>Register</h2>
+      <div className="bg-gray-800 p-8 rounded-xl shadow-lg w-96">
 
-      <form onSubmit={handleRegister}>
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+          DevOps IDP Register
+        </h2>
 
-        <input
-          placeholder="username"
-          onChange={(e) => setUsername(e.target.value)}
-        />
+        <form onSubmit={handleSubmit} className="space-y-4">
 
-        <input
-          placeholder="email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none"
+          />
 
-        <input
-          type="password"
-          placeholder="password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none"
+          />
 
-        <button>Register</button>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none"
+          />
 
-      </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded text-white font-semibold"
+          >
+            Register
+          </button>
+
+        </form>
+
+      </div>
 
     </div>
   );

@@ -1,76 +1,90 @@
-import { useState, useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
-import AuthLayout from "../components/AuthLayout"
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
 
-  const { login } = useContext(AuthContext)
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [form, setForm] = useState({
+    email: "",
+    password: ""
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    login(email, password)
-  }
+  const handleChange = (e) => {
+
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+
+  };
+
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    try {
+
+      const response = await axios.post(
+        "http://localhost:8000/login",
+        form
+      );
+
+      login(response.data.access_token);
+
+      // 🔥 REDIRECCIÓN
+      navigate("/dashboard");
+
+    } catch (error) {
+
+      alert("Login failed");
+
+    }
+
+  };
 
   return (
-    <AuthLayout>
 
-      <div className="bg-white shadow-xl rounded-lg p-10 w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen bg-gray-900">
 
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Iniciar sesión
+      <form
+        onSubmit={handleSubmit}
+        className="bg-gray-800 p-8 rounded-lg w-96"
+      >
+
+        <h2 className="text-white text-2xl mb-6">
+          Login
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <input
+          name="email"
+          placeholder="Email"
+          onChange={handleChange}
+          className="w-full p-3 mb-4 bg-gray-700 text-white rounded"
+        />
 
-          <div>
-            <label className="text-sm font-medium">
-              Email
-            </label>
+        <input
+          name="password"
+          type="password"
+          placeholder="Password"
+          onChange={handleChange}
+          className="w-full p-3 mb-4 bg-gray-700 text-white rounded"
+        />
 
-            <input
-              type="email"
-              placeholder="usuario@email.com"
-              value={email}
-              onChange={(e)=>setEmail(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+        <button
+          className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700"
+        >
+          Login
+        </button>
 
-          <div>
-            <label className="text-sm font-medium">
-              Contraseña
-            </label>
+      </form>
 
-            <input
-              type="password"
-              placeholder="********"
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
+    </div>
 
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition"
-          >
-            Ingresar
-          </button>
+  );
 
-        </form>
-
-        <p className="text-sm text-center mt-6">
-          ¿No tienes cuenta?{" "}
-          <a href="/register" className="text-indigo-600 font-medium">
-            Crear cuenta
-          </a>
-        </p>
-
-      </div>
-
-    </AuthLayout>
-  )
 }
