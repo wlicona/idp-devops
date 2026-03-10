@@ -1,26 +1,23 @@
-import os
 import requests
-from dotenv import load_dotenv
-
-load_dotenv()
+import os
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
-headers = {
-    "Autorization": f"token {GITHUB_TOKEN}",
-    "Accept": "applicacion/vnd.github+json"
-}
-
-def create_repo(name, description="", private=True):
+def create_repo(name: str, description: str):
 
     url = "https://api.github.com/user/repos"
 
-    payload = {
-        "name": name,
-        "description": description,
-        "private": private
+    headers = {
+        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Accept": "application/vnd.github+json"
     }
 
-    response = requests.post(url, json=payload, headers=headers)
+    data = {
+        "name": name,
+        "description": description,
+        "private": False
+    }
+
+    response = requests.post(url, headers=headers, json=data)
 
     return response.json()

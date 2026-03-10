@@ -12,6 +12,9 @@ services:
     ports:
       - "8000:8000"
 
+    environment:
+      - GITHUB_TOKEN=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  
+
     networks:
       - devops-net
 
