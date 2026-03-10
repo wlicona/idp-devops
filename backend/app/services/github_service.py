@@ -8,16 +8,19 @@ def create_repo(name: str, description: str):
     url = "https://api.github.com/user/repos"
 
     headers = {
-        "Authorization": f"Bearer {GITHUB_TOKEN}",
+        "Authorization": f"token {GITHUB_TOKEN}",
         "Accept": "application/vnd.github+json"
     }
 
-    data = {
+    payload = {
         "name": name,
         "description": description,
         "private": False
     }
 
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=payload)
+
+    print(response.status_code)
+    print(response.text)
 
     return response.json()
