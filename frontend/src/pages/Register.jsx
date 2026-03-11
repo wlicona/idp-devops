@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     name: "",
@@ -20,8 +23,13 @@ export default function Register() {
     e.preventDefault();
 
     try {
+
+      console.log(form)
+
       await axios.post("http://localhost:8000/users/", form);
       alert("Usuario creado!");
+      
+      navigate("/login")
     } catch (error) {
       console.error(error);
       alert("Error registrando usuario");
@@ -41,7 +49,7 @@ export default function Register() {
 
           <input
             type="text"
-            name="username"
+            name="name"
             placeholder="Username"
             onChange={handleChange}
             className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none"
@@ -58,6 +66,7 @@ export default function Register() {
           <input
             type="password"
             name="password"
+            /*value={form.password}*/
             placeholder="Password"
             onChange={handleChange}
             className="w-full p-3 rounded bg-gray-700 text-white focus:outline-none"

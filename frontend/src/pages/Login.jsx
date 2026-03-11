@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 
 import { AuthContext } from "../context/AuthContext";
@@ -30,7 +30,7 @@ export default function Login() {
     try {
 
       const response = await axios.post(
-        "http://localhost:8000/login",
+        "http://localhost:8000/auth/login",
         form
       );
 
@@ -80,6 +80,12 @@ export default function Login() {
         >
           Login
         </button>
+
+        <p className="text-gray-400 text-sm mt-4 text-center">
+          Don't have a account? {" "}
+
+          <Link to="/register" className=" text-blue-400 hover:underline">Register</Link>
+        </p>
 
       </form>
 
