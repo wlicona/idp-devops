@@ -26,12 +26,19 @@ export default function Register() {
 
       console.log(form)
 
-      await axios.post("http://localhost:8000/users/", form);
+      await axios.post("http://localhost:8000/auth/register", {
+
+        name: form.name,
+        email: form.email,
+        password: form.password
+
+      });
       alert("Usuario creado!");
       
       navigate("/login")
     } catch (error) {
-      console.error(error);
+
+      console.log(error);
       alert("Error registrando usuario");
     }
   };
