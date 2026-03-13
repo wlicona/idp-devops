@@ -36,6 +36,8 @@ export default function Login() {
 
       login(response.data.access_token);
 
+      localStorage.setItem("token", response.data.access_token);
+
       // 🔥 REDIRECCIÓN
       navigate("/dashboard");
 

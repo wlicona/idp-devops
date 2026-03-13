@@ -40,7 +40,7 @@ export default function Dashboard(){
         <h2 className="text-3xl font-bold mb-6">Welcome to DevOps IDP</h2>
 
         <button onClick={() => navigate("/create-project")} className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg">
-          Create Project
+          Create Repository
         </button>
 
       </div>

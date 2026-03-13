@@ -19,21 +19,30 @@ export default function CreateProject() {
         e.preventDefault();
 
         console.log(project)
+    
+    const token = localStorage.getItem("token"); 
 
+    if (!token) {
+      alert("Login Required");
+
+      return;
+    }
         try {
             await axios.post(
-                "http://localhost:8000/repos/repositories",
+                "http://localhost:8000/repos/repositories", project,
                 
                 {
-                        name: project.name,
-                        description: project.description,
-                        provider: project.provider
-                    
+                       
+                  headers: {
+                  Authorization: `Bearer ${token}`
                         
+                    }
                 }
+                
             );
 
             alert("Repository Created");
+
         } catch (error) {
             console.error(error);
             alert("Error creating repository");
@@ -47,14 +56,14 @@ export default function CreateProject() {
       <div className="bg-gray-800 p-8 rounded-xl w-96">
 
         <h2 className="text-2xl font-bold mb-6 text-white">
-          Create Project
+          Create Repository
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
 
           <input
             name="name"
-            placeholder="Project Name"
+            placeholder="Repository Name"
             onChange={handleChange}
             className="w-full p-3 rounded bg-gray-700 text-white"
           />
