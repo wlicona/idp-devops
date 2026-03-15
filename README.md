@@ -18,10 +18,10 @@ PostgreSQL 17
 
 Jenkins
 
-#Gestor de contenedor
+#Orqquestador de contenedor
 
 Docker
 
 #Frontend (aún en desarrollo)
 
-React + Vite
+React + Vite + Tailwindcss
