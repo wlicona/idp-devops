@@ -24,7 +24,6 @@ export default function Register() {
 
     try {
 
-      console.log(form)
 
       await axios.post("http://localhost:8000/auth/register", {
 

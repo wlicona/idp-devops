@@ -9,19 +9,8 @@ export default function Login() {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
-  const [form, setForm] = useState({
-    email: "",
-    password: ""
-  });
-
-  const handleChange = (e) => {
-
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    });
-
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
 
@@ -31,7 +20,7 @@ export default function Login() {
 
       const response = await axios.post(
         "http://localhost:8000/auth/login",
-        form
+        {email, password}
       );
 
       login(response.data.access_token);
@@ -51,46 +40,51 @@ export default function Login() {
 
   return (
 
-    <div className="flex items-center justify-center min-h-screen bg-gray-900">
+    <div className="flex h-screen">
+      {/* Lado izquierdo */}
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-gray-800 p-8 rounded-lg w-96"
-      >
+      <div className="w-1/2 bg-blue-700 text-white flex flex-col justify-center items-center p-10">
 
-        <h2 className="text-white text-2xl mb-6">
-          Login
-        </h2>
+        <h1 className=" text-4xl font-bold mb-4"> DevOps Self Service Platform</h1>
 
-        <input
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="w-full p-3 mb-4 bg-gray-700 text-white rounded"
-        />
-
-        <input
-          name="password"
-          type="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full p-3 mb-4 bg-gray-700 text-white rounded"
-        />
-
-        <button
-          className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700"
-        >
-          Login
-        </button>
-
-        <p className="text-gray-400 text-sm mt-4 text-center">
-          Don't have a account? {" "}
-
-          <Link to="/register" className=" text-blue-400 hover:underline">Register</Link>
+        <p className="text-lg text-center">
+          Create repositories, manage projects and automate your
+          DevOps workflow from a single platform.
         </p>
 
-      </form>
+      </div>
 
+      {/* Lado Derecho */}
+
+      <div className="w-1/2 flex justify-center items-center bg-gray-900">
+
+        <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-xl w-96 space-y-4">
+
+          <h2 className="text-2xl text-white font-bold">Login</h2>
+
+          <input placeholder="Email" 
+            className="w-full p-3 rounded bg-gray-700 text-white" 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+
+          <input type="password" 
+            placeholder="Password" 
+            className="w-full p-3 rounded bg-gray-700 text-white" 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+
+          <button className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700">Login</button>
+
+          {/* Registration Link*/}
+
+          <p className="text-gray-400 text-sm text-center">
+            Don't have an account?
+
+            <Link to="/register" className="text-blue-400 ml-2 hover:underline">Create one</Link>
+          </p>
+        </form>
+      
+      </div>
     </div>
 
   );

@@ -1,4 +1,4 @@
-import { useNavigate} from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 
 export default function Dashboard(){
 
@@ -24,7 +24,7 @@ export default function Dashboard(){
           </button>
 
           <button className="black text-left w-full hover:text-blue-400">
-            Repositories
+            <Link to= "/create-project">Repositories</Link>
           </button>
 
           <button className="black text-left w-full hover:text-blue-400">
