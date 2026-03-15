@@ -13,7 +13,9 @@ services:
       - "8000:8000"
 
     environment:
-      - GITHUB_TOKEN=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  
+      - GITHUB_TOKEN=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
+      - GITLAB_TOKEN=glpat-jpHH2VuvFBgOQKZGl8XdSG86MQp1OjZoNHA1Cw.01.121ruywcz
+      - BITBUCKET_TOKEN=ATCTT3xFfGN0F5YqtTLXchZ74guQVU6zn5NjaYXsnfIvxJcEgiU8VcpbDTBDbcKvX9RN8R1mmmfEZ-9stPA4spKUzi1JIlNRESvcnTGwHqZexHoYhXpfl1o_c1agwBsHJKuk-BrLXmOIf3s8_4hwMBt02GbhgiBx9z6NrxzNiVEE_m57-ZHXdOM=F29CA3ED
 
     networks:
       - devops-net

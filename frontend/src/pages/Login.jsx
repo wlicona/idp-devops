@@ -1,76 +1,92 @@
-import { useState, useContext } from "react"
-import { AuthContext } from "../context/AuthContext"
-import AuthLayout from "../components/AuthLayout"
+import { useState, useContext } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import axios from "axios";
+
+import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
 
-  const { login } = useContext(AuthContext)
+  const navigate = useNavigate();
+  const { login } = useContext(AuthContext);
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    login(email, password)
-  }
+  const handleSubmit = async (e) => {
+
+    e.preventDefault();
+
+    try {
+
+      const response = await axios.post(
+        "http://localhost:8000/auth/login",
+        {email, password}
+      );
+
+      login(response.data.access_token);
+
+      localStorage.setItem("token", response.data.access_token);
+
+      // 🔥 REDIRECCIÓN
+      navigate("/dashboard");
+
+    } catch (error) {
+
+      alert("Login failed");
+
+    }
+
+  };
 
   return (
-    <AuthLayout>
 
-      <div className="bg-white shadow-xl rounded-lg p-10 w-full max-w-md">
+    <div className="flex h-screen">
+      {/* Lado izquierdo */}
 
-        <h2 className="text-2xl font-bold text-center mb-6">
-          Iniciar sesión
-        </h2>
+      <div className="w-1/2 bg-blue-700 text-white flex flex-col justify-center items-center p-10">
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <h1 className=" text-4xl font-bold mb-4"> DevOps Self Service Platform</h1>
 
-          <div>
-            <label className="text-sm font-medium">
-              Email
-            </label>
-
-            <input
-              type="email"
-              placeholder="usuario@email.com"
-              value={email}
-              onChange={(e)=>setEmail(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-
-          <div>
-            <label className="text-sm font-medium">
-              Contraseña
-            </label>
-
-            <input
-              type="password"
-              placeholder="********"
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-700 transition"
-          >
-            Ingresar
-          </button>
-
-        </form>
-
-        <p className="text-sm text-center mt-6">
-          ¿No tienes cuenta?{" "}
-          <a href="/register" className="text-indigo-600 font-medium">
-            Crear cuenta
-          </a>
+        <p className="text-lg text-center">
+          Create repositories, manage projects and automate your
+          DevOps workflow from a single platform.
         </p>
 
       </div>
 
-    </AuthLayout>
-  )
+      {/* Lado Derecho */}
+
+      <div className="w-1/2 flex justify-center items-center bg-gray-900">
+
+        <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-xl w-96 space-y-4">
+
+          <h2 className="text-2xl text-white font-bold">Login</h2>
+
+          <input placeholder="Email" 
+            className="w-full p-3 rounded bg-gray-700 text-white" 
+            onChange={(e) => setEmail(e.target.value)} 
+          />
+
+          <input type="password" 
+            placeholder="Password" 
+            className="w-full p-3 rounded bg-gray-700 text-white" 
+            onChange={(e) => setPassword(e.target.value)} 
+          />
+
+          <button className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700">Login</button>
+
+          {/* Registration Link*/}
+
+          <p className="text-gray-400 text-sm text-center">
+            Don't have an account?
+
+            <Link to="/register" className="text-blue-400 ml-2 hover:underline">Create one</Link>
+          </p>
+        </form>
+      
+      </div>
+    </div>
+
+  );
+
 }

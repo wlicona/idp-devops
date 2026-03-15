@@ -3,7 +3,7 @@ import os
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 
-def create_repo(name: str, description: str):
+def create_repo_github(name: str, description: str):
 
     url = "https://api.github.com/user/repos"
 
@@ -12,12 +12,23 @@ def create_repo(name: str, description: str):
         "Accept": "application/vnd.github+json"
     }
 
-    data = {
+    print("TOKEN:", GITHUB_TOKEN)
+
+    payload = {
         "name": name,
         "description": description,
         "private": False
     }
 
-    response = requests.post(url, headers=headers, json=data)
+    response = requests.post(url, headers=headers, json=payload)
+
+    print("STATUS:", response.status_code)
+    print("BODY:", response.text)
+
+    if response.status_code != 201:
+        return {
+            "error": "Failed to create repo",
+            "details": response.json()
+        }
 
     return response.json()
