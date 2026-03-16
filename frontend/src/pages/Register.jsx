@@ -80,7 +80,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded text-white font-semibold"
+            className="w-full bg-blue-600 hover:bg-blue-700 p-3 rounded text-white font-semibold text-center"
           >
             Register
           </button>

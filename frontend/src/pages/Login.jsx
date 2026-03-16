@@ -45,6 +45,8 @@ export default function Login() {
 
       <div className="w-1/2 bg-blue-700 text-white flex flex-col justify-center items-center p-10">
 
+        <img src="/devops.png" className="w-92 mb-6" alt="DevOps Platform" />
+
         <h1 className=" text-4xl font-bold mb-4"> DevOps Self Service Platform</h1>
 
         <p className="text-lg text-center">

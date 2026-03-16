@@ -55,7 +55,7 @@ export default function CreateProject() {
 
       <div className="bg-gray-800 p-8 rounded-xl w-96">
 
-        <h2 className="text-2xl font-bold mb-6 text-white">
+        <h2 className="text-2xl font-bold mb-6 text-white text-center">
           Create Repository
         </h2>
 
@@ -87,7 +87,7 @@ export default function CreateProject() {
             </select>
 
           <button
-            className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700"
+            className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700 text-white text-center"
           >
             Create Repository
           </button>

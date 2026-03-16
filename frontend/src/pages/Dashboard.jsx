@@ -20,6 +20,14 @@ export default function Dashboard(){
           </button>
 
           <button className="black text-left w-full hover:text-blue-400">
+            <Link to= "/create-organization">Organizations</Link>
+          </button>
+
+          <button className="black text-left w-full hover:text-blue-400">
+            Pipelines
+          </button>
+
+          <button className="black text-left w-full hover:text-blue-400">
             Projects
           </button>
 
@@ -27,9 +35,7 @@ export default function Dashboard(){
             <Link to= "/create-project">Repositories</Link>
           </button>
 
-          <button className="black text-left w-full hover:text-blue-400">
-            Pipelines
-          </button>
+          
         </nav>
       </div>
 
