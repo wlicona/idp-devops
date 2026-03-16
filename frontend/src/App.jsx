@@ -3,8 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import CreateProject from "./pages/CreateProject";
-import CreateOrganization from "./pages/CreateOrganization";
+import CreateProject from "./modules/CreateProject";
+import CreateOrganization from "./modules/CreateOrganization";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
 

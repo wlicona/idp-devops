@@ -2,21 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 
 export default function CreateOrganization() {
-    const [organization, setOrganization] = useState({
-        name: ""
-    });
+    const [name, setName] = useState("");
 
-    const handleChange = (e) => {
-        setOrganization({
-            ...organization,
-            [e.target.name]: e.target.value
-        });
-    };
-
-    const handleSubmit = async (e) => {
+    const createOrg = async (e) => {
         e.preventDefault();
 
-        console.log(organization)
 
         const token = localStorage.getItem("token");
 
@@ -26,9 +16,10 @@ export default function CreateOrganization() {
             return;
         }
 
-        try {
             await axios.post(
-               "http://localhost:8000/organizations", organization,
+               "http://localhost:8000/organizations",
+               { name },
+
                {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -37,12 +28,10 @@ export default function CreateOrganization() {
             );
 
             alert("Organization Created");
-        } catch(error){
-            console.error(error);
-            alert("Error creating Organization");
-        }
+
     };
 
+           
     return (
 
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -51,11 +40,11 @@ export default function CreateOrganization() {
                     Create Organization
                 </h2>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={createOrg} className="space-y-4">
                     <input 
                         name="name"
                         placeholder="Organization Name"
-                        onChange={handleChange}
+                        onChange={(e) => setName(e.target.value)}
                         className="w-full p-3 rounded bg-gray-700 text-white"
                     />
 
