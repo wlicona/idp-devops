@@ -3,6 +3,7 @@ import { useState } from "react";
 import Sidebar from "../components/sidebar";
 import CreateOrganization from "../modules/CreateOrganization";
 import CreateRepository from "../modules/CreateRepository";
+import CreateProject from "../modules/CreateProject";
 
 export default function Dasboard() {
 
@@ -10,7 +11,8 @@ export default function Dasboard() {
 
   const renderView = () => {
     
-    if (view === "organization") return <CreateOrganization />;  
+    if (view === "organization") return <CreateOrganization />;
+    if (view === "project") return <CreateProject />;
     if (view === "repositories") return <CreateRepository />;
 
     return (
