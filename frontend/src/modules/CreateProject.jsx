@@ -34,7 +34,7 @@ export default function CreateProject() {
         const token = localStorage.getItem("token");
 
         await axios.post(
-            "http://localhost:8000/projects", {
+            "http://localhost:8000/api/projects", {
                 name: name,
                 organization_id: organizationId
             },
