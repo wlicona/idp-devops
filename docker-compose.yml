@@ -13,8 +13,8 @@ services:
       - "8000:8000"
 
     environment:
-      - GITHUB_TOKEN=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
-      - GITLAB_TOKEN=glpat-jpHH2VuvFBgOQKZGl8XdSG86MQp1OjZoNHA1Cw.01.121ruywcz
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITLAB_TOKEN=${GITLAB_TOKEN}
 
     networks:
       - devops-net
