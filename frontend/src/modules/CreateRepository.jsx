@@ -1,16 +1,16 @@
 import { useState } from "react";
 import axios from "axios";
 
-export default function CreateProject() {
-    const [project, setProject] = useState({
+export default function CreateRepository() {
+    const [repository, setRepository] = useState({
         name: "",
         description: "",
         provider: "github"
     });
 
     const handleChange = (e) => {
-        setProject({
-            ...project,
+        setRepository({
+            ...repository,
             [e.target.name]: e.target.value
         });
     };
@@ -18,7 +18,7 @@ export default function CreateProject() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log(project)
+        console.log(repository)
     
     const token = localStorage.getItem("token"); 
 
@@ -28,8 +28,9 @@ export default function CreateProject() {
       return;
     }
         try {
+          console.log("TOKEN:", token);
             await axios.post(
-                "http://localhost:8000/repos/repositories", project,
+                "http://localhost:8000/repos/repositories", repository,
                 
                 {
                        
@@ -55,7 +56,7 @@ export default function CreateProject() {
 
       <div className="bg-gray-800 p-8 rounded-xl w-96">
 
-        <h2 className="text-2xl font-bold mb-6 text-white">
+        <h2 className="text-2xl font-bold mb-6 text-white text-center">
           Create Repository
         </h2>
 
@@ -87,7 +88,7 @@ export default function CreateProject() {
             </select>
 
           <button
-            className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700"
+            className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700 text-white text-center"
           >
             Create Repository
           </button>

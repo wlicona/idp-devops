@@ -1,50 +1,131 @@
-import { Link, useNavigate} from "react-router-dom"
+import { useState, useEffect } from "react";
+import { Building2, FolderKanban, GitBranch } from "lucide-react";
+import axios from "axios";
 
-export default function Dashboard(){
+import Sidebar from "../components/sidebar";
+import CreateOrganization from "../modules/CreateOrganization";
+import CreateRepository from "../modules/CreateRepository";
+import CreateProject from "../modules/CreateProject";
 
-  const navigate = useNavigate();
+export default function Dasboard() {
 
-  return (
-    <div className="flex min-h-screen bg-gray-900 text-white">
+  const [view, setView] = useState("dashboard");
+  const [metrics, setMetrics] = useState(null);
 
-      {/* SIDEBAR*/ }
+  useEffect(() => {
 
-      <div className="w-64 bg-gray-800 p-6">
+    if (view === "dashboard"){
+      const fetchMetrics = async () => {
+        const token = localStorage.getItem("token");
 
-        <h1 className="text-xl font-bold mb-8">DevOps IDP</h1>
+        try {
 
-        <nav className="space-y-4">
+          const res = await axios.get(
+            
+            "http://localhost:8000/dashboard/metrics",
+            {
+              headers: {
+                  Authorization: `Bearer ${token}`
+              }
+            }
+          );
 
-          <button className="black text-left w-full hover:text-blue-400">
-            Dashboard
-          </button>
+          setMetrics(res.data);
 
-          <button className="black text-left w-full hover:text-blue-400">
-            Projects
-          </button>
+        } catch(error) {
+          console.error(error);
+        }
+        
+      };
 
-          <button className="black text-left w-full hover:text-blue-400">
-            <Link to= "/create-project">Repositories</Link>
-          </button>
+      fetchMetrics();
+    }
+  }, [view]);
 
-          <button className="black text-left w-full hover:text-blue-400">
-            Pipelines
-          </button>
-        </nav>
+  const renderView = () => {
+    
+    if (view === "organization") return <CreateOrganization />;
+    if (view === "project") return <CreateProject />;
+    if (view === "repositories") return <CreateRepository />;
+
+    if (!metrics){
+      return <p className="text-white">Loading Metrics...</p>;
+    }
+    return (
+
+      <div className="space-y-8">
+
+        {/* 🔢 CARDS */}
+        <div className="grid grid-cols-3 gap-6">
+
+        {/*Organizations*/}
+
+          <div className="bg-gray-800 p-6 rounded-xl shadow flex items-center justify-between hover:scale-105 transition transform duration-200">
+
+            <div>
+            <h3 className="text-gray-400 text-center">Organizations</h3>
+            <p className="text-3xl font-bold items-center">
+              {metrics.organizations}
+            </p>
+          </div>
+
+          <div className="bg-blue-600 p-3 rounded-lg">
+            <Building2 size={24} />
+          </div>  
+
+          </div>
+
+          {/*Projects*/}
+
+          <div className="bg-gray-800 p-6 rounded-xl shadow flex items-center justify-between hover:scale-105 transition transform duration-200">
+            <div>
+              <h3 className="text-gray-400">Projects</h3>
+              <p className="text-3xl font-bold">
+                {metrics.projects}
+              </p>
+            </div>
+
+            <div className="bg-green-600 p-3 rounded-lg">
+              <FolderKanban size={24} />
+
+            </div>
+          </div>
+
+          {/* Repositories */}
+          <div className="bg-gray-800 p-6 rounded-xl shadow flex items-center justify-between hover:scale-105 transition transform duration-200">
+
+            <div>
+              <h3 className="text-gray-400">Repositories</h3>
+              <p className="text-3xl font-bold">
+                {metrics.repositories}
+              </p>
+          </div>
+
+          <div className="bg-purple-600 p-3 rounded-lg">
+            <GitBranch size={24} />
+          </div>
+        </div>  
       </div>
+        
+        
+    </div>
+    );
+  };
+  
+  return (
 
-      {/* MAIN */}
+    <div className="flex bg-gray-950 text-white">
+
+      <Sidebar setView={setView} />
 
       <div className="flex-1 p-10">
 
-        <h2 className="text-3xl font-bold mb-6">Welcome to DevOps IDP</h2>
-
-        <button onClick={() => navigate("/create-project")} className="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg">
-          Create Repository
-        </button>
+        {renderView()}
 
       </div>
 
     </div>
-  )
+
+  );
+
 }

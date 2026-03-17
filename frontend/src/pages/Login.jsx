@@ -45,6 +45,8 @@ export default function Login() {
 
       <div className="w-1/2 bg-blue-700 text-white flex flex-col justify-center items-center p-10">
 
+        <img src="/devops.png" className="w-92 mb-6" alt="DevOps Platform" />
+
         <h1 className=" text-4xl font-bold mb-4"> DevOps Self Service Platform</h1>
 
         <p className="text-lg text-center">
@@ -60,7 +62,7 @@ export default function Login() {
 
         <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-xl w-96 space-y-4">
 
-          <h2 className="text-2xl text-white font-bold">Login</h2>
+          <h2 className="text-2xl text-white font-bold text-center">Login</h2>
 
           <input placeholder="Email" 
             className="w-full p-3 rounded bg-gray-700 text-white" 
@@ -73,7 +75,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)} 
           />
 
-          <button className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700">Login</button>
+          <button className="w-full bg-blue-600 p-3 rounded hover:bg-blue-700 text-center">Login</button>
 
           {/* Registration Link*/}
 

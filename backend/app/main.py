@@ -11,6 +11,9 @@ from app.routes import users
 from app.routes import github
 from app.routes import auth
 from app.routes import repository
+from app.routes import organization
+from app.routes import project
+from app.routes import dashboard
 
 app = FastAPI(title= "DevOps IDP Platform", version="1.0")
 
@@ -33,6 +36,9 @@ app.include_router(users.router)
 app.include_router(github.router, prefix="/github", tags=["github"])
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(repository.router, prefix="/repos", tags=["repositories"])
+app.include_router(organization.router)
+app.include_router(project.router, prefix="/api")
+app.include_router(dashboard.router, prefix="/dashboard")
 
 @app.get("/")
 def health():

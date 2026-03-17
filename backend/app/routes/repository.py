@@ -11,7 +11,6 @@ router = APIRouter()
 @router.post("/repositories")
 def create_repo(repo: repoCreate, user= Depends(get_current_user)):
 
-    print("Provider recibido:", repo.provider)
 
     if repo.provider == "github":
         return create_repo_github(repo.name, repo.description)

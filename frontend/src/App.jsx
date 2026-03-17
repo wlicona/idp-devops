@@ -3,9 +3,11 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
-import CreateProject from "./pages/CreateProject";
+import CreateRepository from "./modules/CreateRepository";
+import CreateOrganization from "./modules/CreateOrganization";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
+
 
 export default function App() {
 
@@ -34,7 +36,16 @@ export default function App() {
           path="/create-project"
           element={
             <ProtectedRoute>
-              <CreateProject />
+              <CreateRepository />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/create-organization"
+          element={
+            <ProtectedRoute>
+              <CreateOrganization />
             </ProtectedRoute>
           }
         />

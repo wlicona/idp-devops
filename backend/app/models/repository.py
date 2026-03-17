@@ -13,3 +13,4 @@ class Repository(Base):
     repo_url = Column(String)
 
     project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id"))
+    git_provider_id = Column(UUID(as_uuid=True), ForeignKey("git_providers.id"))
