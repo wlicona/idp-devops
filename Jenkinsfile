@@ -11,11 +11,21 @@ pipeline {
 
     stages {
 
+        stage('Init Workspace') {
+            steps {
+                echo "Workspace actual:"
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
         stage('Checkout') {
             steps {
+                dir('idp-devops') {
                git branch: 'master', url: 'https://github.com/wlicona/idp-devops.git'
             }
         }
+    }
 
         stage('Debug') {
             steps {
