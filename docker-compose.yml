@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build: ./backend
+    container_name: devops-backend
+
+    env_file:
+      - .env
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GITLAB_TOKEN=${GITLAB_TOKEN}
+
+    networks:
+      - devops-net
+
+networks:
+  devops-net:
