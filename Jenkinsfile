@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         IMAGE_NAME = "wlicona10/idp-devops"
-        CONTAINER_APP = "TU_CONTAINER_APP_NAME"
+        CONTAINER_APP = "idp-devops-a2fyf"
         RESOURCE_GROUP = "rg-idp-devops"
-        SUBSCRIPTION_ID = "TU_SUBSCRIPTION_ID"
-        TENANT_ID = "TU_TENANT_ID"
+        SUBSCRIPTION_ID = credentials('subscription-id')
+        TENANT_ID = credentials('tenant-id')
     }
 
     stages {
