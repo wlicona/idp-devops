@@ -13,7 +13,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-               git branch: 'main', url: 'https://github.com/wlicona10/idp-devops.git'
+               checkout scm
             }
         }
 
