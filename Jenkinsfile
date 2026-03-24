@@ -13,7 +13,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/wlicona10/idp-devops.git'
+                git 'https://github.com/wlicona/idp-devops.git'
             }
         }
 
