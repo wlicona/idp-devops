@@ -1,12 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 export default function CreateRepository() {
     const [repository, setRepository] = useState({
         name: "",
         description: "",
-        provider: "github"
+        provider: "github",
+        project_id: ""
     });
+
+    const [projects, setProjects] = useState([]);
+
+    useEffect(() => {
+
+      const fetchProjects = async () => {
+        
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:8000/api/projects", {
+
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        setProjects(res.data);
+      };
+
+      fetchProjects();
+    }, []);
 
     const handleChange = (e) => {
         setRepository({
@@ -17,36 +39,23 @@ export default function CreateRepository() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        console.log(repository)
-    
-    const token = localStorage.getItem("token"); 
-
-    if (!token) {
-      alert("Login Required");
-
-      return;
-    }
+        const token = localStorage.getItem("token");
         try {
-          console.log("TOKEN:", token);
-            await axios.post(
-                "http://localhost:8000/repos/repositories", repository,
-                
-                {
-                       
-                  headers: {
-                  Authorization: `Bearer ${token}`
-                        
-                    }
+            await axios.post("http://localhost:8000/repos/repositories", repository, {
+                headers: {
+                    Authorization: `Bearer ${token}`
                 }
-                
-            );
+            });
 
-            alert("Repository Created");
-
+            alert("Repository created successfully!");
+            setRepository({
+                name: "",
+                description: "",
+                provider: "github",
+                project_id: ""
+            });
         } catch (error) {
-            console.error(error);
-            alert("Error creating repository");
+            console.error("Error creating repository:", error);
         }
     };
 

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Building2, FolderKanban, GitBranch } from "lucide-react";
 import axios from "axios";
 
+import RepositoryList from "../modules/RepositoryList";
 import Sidebar from "../components/sidebar";
 import CreateOrganization from "../modules/CreateOrganization";
 import CreateRepository from "../modules/CreateRepository";
@@ -47,6 +48,7 @@ export default function Dasboard() {
     if (view === "organization") return <CreateOrganization />;
     if (view === "project") return <CreateProject />;
     if (view === "repositories") return <CreateRepository />;
+    if (view === "list_repositories") return <RepositoryList />;
 
     if (!metrics){
       return <p className="text-white">Loading Metrics...</p>;

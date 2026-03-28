@@ -48,6 +48,14 @@ export default function Sidebar({ setView}) {
                   Repositories
                 </button>
 
+                <button onClick={() => setView("list_repositories")}
+                  
+                  className="flex items-center gap-3 w-full p-3 rounded-lg hover:bg-gray-800 transition">
+                  
+                  <GitBranch size={18} />
+                  View Repositories
+                </button>
+
             </nav>
         </div>
         
