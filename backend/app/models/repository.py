@@ -12,4 +12,4 @@ class Repository(Base):
     project_id = Column(UUID(as_uuid=True), ForeignKey("projects.id"))
     git_provider_id = Column(UUID(as_uuid=True), ForeignKey("git_providers.id"))
     repo_url = Column(String)
-    default_branch = Column(String, default="master")
+    default_branch = Column(String, default="main")

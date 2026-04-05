@@ -17,7 +17,7 @@ export default function CreateRepository() {
         
         const token = localStorage.getItem("token");
 
-        const res = await axios.get("http://localhost:8000/api/projects", {
+        const res = await axios.get("http://localhost:8000/api/projects",{
 
           headers: {
             Authorization: `Bearer ${token}`
@@ -84,6 +84,22 @@ export default function CreateRepository() {
             onChange={handleChange}
             className="w-full p-3 rounded bg-gray-700 text-white"
           />
+
+          <select
+            name="project_id"
+            value={repository.project_id}
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-gray-700 text-white"
+            >
+            <option value="">Select Project</option>
+
+              {projects.map((proj) => (
+                <option key={proj.id} value={proj.id}>
+                {proj.name}
+            </option>
+            ))}
+
+          </select>
 
           <select
             name="provider"

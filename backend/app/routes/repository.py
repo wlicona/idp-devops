@@ -7,7 +7,7 @@ from app.models.repository import Repository
 from app.services.github_service import create_repo_github
 from app.services.gitlab_service import create_repo_gitlab
 from app.core.dependencies import get_current_user, get_db
-from app.models.git_provider import provider
+from app.models.git_provider import Gitprovider
 
 router = APIRouter()
 
@@ -18,9 +18,9 @@ def create_repo(
     user = Depends(get_current_user)
 ):
 
-    provider = db.query(provider).filter(
-        provider.name == repo.provider
-    ).frist()
+    provider = db.query(Gitprovider).filter(
+        Gitprovider.name == repo.provider
+    ).first()
 
     if not provider:
         raise HTTPException(status_code=400, detail="Provider not found")
@@ -53,7 +53,7 @@ def create_repo(
     new_repo = Repository(
         name=repo.name,
         project_id=repo.project_id,
-        git_provider_id=repo.provider,
+        git_provider_id=provider.id,
         repo_url = repo_url,
         default_branch = default_branch
     )
@@ -76,8 +76,8 @@ def get_repositories(
     user = Depends(get_current_user)
 ):
 
-    repos = db.query(Repository, provider.name)\
-        .join(provider)\
+    repos = db.query(Repository, Gitprovider.name)\
+        .join(Gitprovider)\
         .all()
 
     result = []
